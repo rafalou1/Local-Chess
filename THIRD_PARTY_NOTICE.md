@@ -34,3 +34,7 @@ Fast Piper models preserve their upstream MODEL_CARD and JSON configuration. Rya
 0.1.3 adds the observed official magnifier-star SVG and default player GIF; same personal-comparison scope and ownership. Provenance and hashes recorded in REFERENCE_ASSETS.json.
 
 0.1.3 winner/mate SVG paths are static transcriptions of observed inline artwork, with local colored circular wrappers. No upstream JavaScript is executed or bundled.
+
+## AI provider identity assets
+
+Codex uses the unchanged icon from the official OpenAI.Codex Windows package (26.1007.9446.0). Claude uses the unchanged asterisk at https://claude.ai/favicon.svg. Antigravity uses Google's unchanged icon at https://antigravity.google/assets/image/brand/antigravity-icon__full-color.svg (official press kit: https://antigravity.google/press). Provider names/logos identify the selected tool and retain their owners' rights; the source GPL does not relicense them. No endorsement is claimed.
