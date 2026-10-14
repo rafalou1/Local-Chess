@@ -3,3 +3,5 @@
 .provider-play-setup .coach-intro{display:none}.provider-play-setup .setup-content{padding:24px 20px 18px}.provider-play-setup .play-button{margin-top:18px}.provider-play-setup .setup-row strong>svg{display:none}
 
 .provider-play-setup .coach-panel{min-height:0;height:auto;align-self:flex-start;max-height:calc(100vh - 34px)}
+
+.setup-start-error{font-size:12px;line-height:1.5;color:#e0bb8a;margin:10px 0 0;text-align:center}.provider-consent input:focus-visible{outline:2px solid #bad78f;outline-offset:4px}

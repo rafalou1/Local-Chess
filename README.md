@@ -29,9 +29,9 @@ Windows 10/11, 64-bit Intel or AMD. No Git, Node.js, Rust, API key, or paid acco
 
 Choose **AI provider** when starting a game, then choose **Codex**, **Claude Code**, or **Antigravity**. Missing provider tools have an Install button; sign-in takes place in the provider's official flow. The installed CLI supplies model and effort options.
 
-The opponent receives the position, variant and legal moves after you accept the position-sharing checkbox. Stockfish still handles coaching, and the local chess rules validate every reply. Subscription/account limits apply; API authentication and automatic API billing fallback are blocked. Model access depends on your account and installed provider version. Response times vary; lower effort can give faster replies.
+The opponent receives the position, variant and legal moves after you accept the position-sharing checkbox. Stockfish still handles coaching, and the local chess rules validate every reply. Subscription/account limits apply; API authentication and automatic API billing fallback are blocked. Model access depends on your account and installed provider version. Connection failures show a Retry action, and Play explains any incomplete setup. Response times vary; lower effort can give faster replies.
 
-Codex and Antigravity real moves were tested for v0.2.15. Claude's catalog and unauthenticated setup were tested; signed-in Claude inference still needs real-account verification.
+Codex real moves were tested for v0.2.15. Antigravity startup and real moves were tested again for v0.2.16. Claude's catalog and unauthenticated setup were tested; signed-in Claude inference still needs real-account verification.
 
 ## Updates
 

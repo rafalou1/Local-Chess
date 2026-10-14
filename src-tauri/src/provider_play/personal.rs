@@ -7,6 +7,19 @@ fn capture(
     cancel: &AtomicBool,
     isolated: bool,
 ) -> Result<(String, bool), String> {
+    let envelope = args
+        .windows(2)
+        .any(|a| a[0] == "--output-format" && a[1] == "json");
+    capture_inner(exe, args, deadline, cancel, isolated, envelope)
+}
+fn capture_inner(
+    exe: &Path,
+    args: &[String],
+    deadline: Instant,
+    cancel: &AtomicBool,
+    isolated: bool,
+    envelope: bool,
+) -> Result<(String, bool), String> {
     let mut p = Process::spawn_profile(exe, args, isolated)?;
     p.input.take();
     let mut out = String::new();
@@ -23,15 +36,22 @@ fn capture(
                 if out.len() > 1048576 {
                     return Err("Provider response too large".into());
                 }
+                if envelope {
+                    if let Ok(v) = serde_json::from_str::<Value>(&out) {
+                        if let Some(status) = v["status"].as_str() {
+                            // A JSON result is terminal even if CLI shutdown is
+                            // still waiting for its background migration worker.
+                            return Ok((out, status == "SUCCESS"));
+                        }
+                    }
+                }
             }
             Err(mpsc::RecvTimeoutError::Disconnected) => {
-                return Ok((
-                    out,
-                    p.child
-                        .wait()
-                        .map_err(|_| "Provider wait failed")?
-                        .success(),
-                ))
+                if let Some(status) = p.child.try_wait().map_err(|_| "Provider wait failed")? {
+                    return Ok((out, status.success()));
+                }
+                // Do not replace the bounded deadline with an unbounded wait().
+                std::thread::sleep(Duration::from_millis(40));
             }
             Err(_) => {}
         }
@@ -47,6 +67,7 @@ fn base_status(id: &str, name: &str, exe: &str, source: &str) -> Status {
         installed: find_exe(exe).is_some(),
         available: false,
         authenticated: false,
+        connection_error: false,
         billing: "Account usage · no API fallback".into(),
         version: String::new(),
         detail: format!("Install {name} to get started."),
@@ -166,7 +187,8 @@ pub(super) fn claude_status(cancel: &AtomicBool, deadline: Instant) -> Status {
         Ok::<(), String>(())
     })();
     if let Err(e) = r {
-        s.detail = e
+        s.detail = e;
+        s.connection_error = true;
     }
     s
 }
@@ -193,7 +215,7 @@ fn agy_command(
     let v: Value = serde_json::from_str(text.trim())
         .map_err(|_| "Antigravity returned an invalid metadata envelope")?;
     if v["status"] != "SUCCESS" {
-        return Err("Sign in with Google in the official Antigravity window, then refresh.".into());
+        return Err("Antigravity could not check the connection. Retry, or use Sign in in Options if needed.".into());
     }
     Ok(v)
 }
@@ -216,6 +238,53 @@ fn agy_model_rows(text: &str) -> Vec<Model> {
             })
         })
         .collect()
+}
+// Effort variants are first-class, pinned IDs in the native model catalog.
+// Avoid /effort: this version can wait indefinitely in its settings command.
+fn agy_catalog(text: &str, help: &str) -> Vec<Model> {
+    let mut models = agy_model_rows(text);
+    let levels = help
+        .lines()
+        .find(|l| l.contains("--effort"))
+        .and_then(|l| l.split_once('('))
+        .and_then(|(_, tail)| tail.split_once(')'))
+        .map(|(values, _)| {
+            values
+                .split('|')
+                .map(str::trim)
+                .filter(|e| !e.is_empty() && e.bytes().all(|b| b.is_ascii_alphanumeric()))
+                .map(str::to_owned)
+                .collect::<Vec<_>>()
+        })
+        .unwrap_or_default();
+    let ids = models.iter().map(|m| m.id.clone()).collect::<Vec<_>>();
+    for model in &mut models {
+        if let Some((base, current)) = model.id.rsplit_once('-') {
+            if !levels.iter().any(|e| e == current) {
+                continue;
+            }
+            let options = levels
+                .iter()
+                .filter(|effort| ids.iter().any(|id| id == &format!("{base}-{effort}")))
+                .cloned()
+                .collect::<Vec<_>>();
+            // One fixed variant does not establish an adjustable effort setting.
+            if options.len() > 1 {
+                model.default_effort = current.into();
+                model.efforts = options;
+            }
+        }
+    }
+    models
+}
+fn agy_pinned_model(selection: &Selection) -> String {
+    if !selection.effort.is_empty() {
+        if let Some((base, _)) = selection.model.rsplit_once('-') {
+            // ensure_selection has verified that this exact sibling exists.
+            return format!("{base}-{}", selection.effort);
+        }
+    }
+    selection.model.clone()
 }
 pub(super) fn agy_status(cancel: &AtomicBool, deadline: Instant) -> Status {
     let mut s = base_status(
@@ -242,14 +311,21 @@ pub(super) fn agy_status(cancel: &AtomicBool, deadline: Instant) -> Status {
         {
             return Err("Update Antigravity CLI for isolated chess mode.".into());
         }
-        let config = agy_command(&exe, "/config", None, deadline, cancel)?;
-        if config["command"]["data"]["config"]["modelProvider"]
-            .as_str()
-            .is_some_and(|s| !s.is_empty())
-        {
-            return Err("API provider configuration is blocked in chess mode.".into());
-        }
-        let usage = agy_command(&exe, "/usage", None, deadline, cancel)?;
+        // The profile is created by us with no API route and stripped API env.
+        // /config can hang in this CLI even in print mode; it is unnecessary
+        // for authentication and must not block play or imply a lost sign-in.
+        let attempt_deadline = deadline.min(Instant::now() + Duration::from_secs(8));
+        let usage = match agy_command(&exe, "/usage", None, attempt_deadline, cancel) {
+            Ok(v) => v,
+            Err(e)
+                if !cancel.load(Ordering::SeqCst)
+                    && e.contains("timed out")
+                    && Instant::now() < deadline =>
+            {
+                agy_command(&exe, "/usage", None, deadline, cancel)?
+            }
+            Err(e) => return Err(e),
+        };
         s.authenticated = usage["command"]["name"] == "usage"
             && usage["command"]["data"]["groups"]
                 .as_array()
@@ -258,34 +334,7 @@ pub(super) fn agy_status(cancel: &AtomicBool, deadline: Instant) -> Status {
         if !success {
             return Err("Antigravity model discovery failed. Sign in or refresh.".into());
         }
-        s.models = agy_model_rows(&text);
-        std::thread::scope(|scope| {
-            let jobs = s
-                .models
-                .iter()
-                .map(|m| m.id.clone())
-                .map(|id| {
-                    let exe = &exe;
-                    scope.spawn(move || agy_command(exe, "/effort", Some(&id), deadline, cancel))
-                })
-                .collect::<Vec<_>>();
-            for (m, job) in s.models.iter_mut().zip(jobs) {
-                let e = job
-                    .join()
-                    .map_err(|_| "Antigravity effort discovery failed")??;
-                let data = &e["command"]["data"];
-                if data["adjustable"] == true {
-                    m.efforts = data["available"]
-                        .as_array()
-                        .ok_or("Missing Antigravity effort options")?
-                        .iter()
-                        .filter_map(|e| e.as_str().map(str::to_owned))
-                        .collect();
-                    m.default_effort = data["current"].as_str().unwrap_or("").into();
-                }
-            }
-            Ok::<(), String>(())
-        })?;
+        s.models = agy_catalog(&text, &help);
         s.available = s.authenticated && !s.models.is_empty();
         s.billing = if s.authenticated {
             "Google account allowance · extra credits disabled".into()
@@ -300,7 +349,8 @@ pub(super) fn agy_status(cancel: &AtomicBool, deadline: Instant) -> Status {
         Ok::<(), String>(())
     })();
     if let Err(e) = r {
-        s.detail = e
+        s.detail = e;
+        s.connection_error = true;
     }
     s
 }
@@ -345,6 +395,20 @@ fn claude_response(v: &Value) -> Result<Option<String>, String> {
         _ => Ok(None),
     }
 }
+fn agy_turn_error(result: &Value) -> String {
+    let error = result["error"].as_str().unwrap_or("").to_ascii_lowercase();
+    if error.contains("unknown agent") {
+        "Antigravity could not load the chess profile. Restart the app and retry."
+    } else if error.contains("quota") || error.contains("resource_exhausted") || error.contains("rate limit") {
+        "Antigravity's usage limit was reached. Try another model, wait for the limit to reset, or switch to local play."
+    } else if error.contains("unauthenticated") || error.contains("not authenticated") || error.contains("sign in") {
+        "Antigravity needs Google sign-in. Use the official sign-in window, then refresh."
+    } else if error.contains("not recognized") || error.contains("model is not available") {
+        "This Antigravity model is unavailable. Refresh models or select another one."
+    } else {
+        "Antigravity could not finish the turn. Retry or check the provider's connection and account limits."
+    }.into()
+}
 pub(super) fn move_text(
     s: &Selection,
     prompt: &str,
@@ -383,7 +447,8 @@ pub(super) fn move_text(
         return Err("Claude event limit reached".into());
     }
     let exe = find_exe("agy").ok_or("Install Antigravity first")?;
-    let mut args = strings(&[
+    let pinned_model = agy_pinned_model(s);
+    let args = strings(&[
         "--input-format",
         "stream-json",
         "--output-format",
@@ -395,13 +460,10 @@ pub(super) fn move_text(
         "--sandbox",
         "--disable-slash-commands",
         "--model",
-        &s.model,
+        &pinned_model,
         "--print-timeout",
         &format!("{}s", s.timeout_seconds),
     ]);
-    if !s.effort.is_empty() {
-        args.extend(strings(&["--effort", &s.effort]));
-    }
     let mut p = Process::spawn_profile(&exe, &args, true)?;
     p.send(&json!({"event":"user","message":{"content":prompt}}))?;
     p.input.take();
@@ -417,7 +479,7 @@ pub(super) fn move_text(
         if v["event"] == "result" {
             let r = &v["result"];
             if r["status"] != "SUCCESS" {
-                return Err("Antigravity turn failed. Check Google sign-in, model access and account limits.".into());
+                return Err(agy_turn_error(r));
             }
             let text = r["response"]
                 .as_str()
@@ -436,7 +498,7 @@ pub(super) fn prepare_agy(dir: &Path) -> Result<(), String> {
     let agents = dir.join(".agents/agents");
     std::fs::create_dir_all(&profile).map_err(|_| "Cannot create isolated provider settings")?;
     std::fs::create_dir_all(&agents).map_err(|_| "Cannot create isolated chess agent")?;
-    std::fs::write(profile.join("settings.json"),json!({"toolPermission":"strict","allowNonWorkspaceAccess":false,"enableTerminalSandbox":true,"useG1Credits":false,"permissions":{"deny":["command(*)","read_file(*)","write_file(*)","mcp(*)","read_url(*)","execute_url(*)"]}}).to_string()).map_err(|_|"Cannot save isolated provider settings")?;
+    std::fs::write(profile.join("settings.json"),json!({"toolPermission":"strict","allowNonWorkspaceAccess":false,"enableTerminalSandbox":true,"useG1Credits":false,"modelProvider":"","permissions":{"deny":["command(*)","read_file(*)","write_file(*)","mcp(*)","read_url(*)","execute_url(*)"]}}).to_string()).map_err(|_|"Cannot save isolated provider settings")?;
     std::fs::write(agents.join("local-chess.md"),"---\nname: local-chess\ndescription: Choose one legal chess move only.\nmainAgent: true\nsubagent: false\ntools: [finish]\nmcpServers: []\nskills: []\nplugins: []\ninheritCustomizations: false\ninheritMcp: false\ncommandExecutionPolicy: off\n---\nReturn exactly one supplied legal UCI move. No tools, files, shell, web, explanations or resignation.\n").map_err(|_|"Cannot save isolated chess agent")?;
     Ok(())
 }
@@ -550,6 +612,56 @@ pub(super) fn login(id: &str) -> Result<String, String> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn complete_metadata_does_not_wait_for_slow_shutdown() {
+        use base64::Engine as _;
+        let exe = PathBuf::from(std::env::var_os("WINDIR").unwrap())
+            .join("System32/WindowsPowerShell/v1.0/powershell.exe");
+        let script = "Write-Output '{\"status\":\"SUCCESS\"}'; Start-Sleep -Seconds 6";
+        let bytes = script
+            .encode_utf16()
+            .flat_map(u16::to_le_bytes)
+            .collect::<Vec<_>>();
+        let encoded = base64::engine::general_purpose::STANDARD.encode(bytes);
+        let start = Instant::now();
+        let (out, ok) = capture_inner(
+            &exe,
+            &strings(&["-NoProfile", "-EncodedCommand", &encoded]),
+            Instant::now() + Duration::from_secs(3),
+            &AtomicBool::new(false),
+            false,
+            true,
+        )
+        .unwrap();
+        assert!(ok);
+        assert_eq!(
+            serde_json::from_str::<Value>(&out).unwrap()["status"],
+            "SUCCESS"
+        );
+        assert!(start.elapsed() < Duration::from_secs(2));
+    }
+    #[test]
+    fn agy_effort_variants_are_catalog_bound() {
+        let models = agy_catalog("gemini-3.8-flash-high\tGemini High\ngemini-3.8-flash-low\tGemini Low\ngpt-oss-120b-medium\tGPT Medium\n", "  --effort Reasoning effort (low|medium|high|xhigh|max)");
+        assert_eq!(models[0].efforts, vec!["low", "high"]);
+        assert_eq!(models[0].default_effort, "high");
+        assert!(models[2].efforts.is_empty());
+        assert!(!models[0].efforts.iter().any(|e| e == "medium"));
+        assert!(agy_catalog(
+            "sample-high\tSample\nsample-low\tSample Low\n",
+            "--effort changed interface"
+        )[0]
+        .efforts
+        .is_empty());
+        let s = Selection {
+            provider: "antigravity".into(),
+            model: models[0].id.clone(),
+            display_name: models[0].name.clone(),
+            effort: "low".into(),
+            timeout_seconds: 30,
+        };
+        assert_eq!(agy_pinned_model(&s), "gemini-3.8-flash-low");
+    }
     #[test]
     fn claude_auth_is_subscription_only() {
         assert!(claude_auth(

@@ -39,6 +39,7 @@ pub struct Status {
     pub installed: bool,
     pub available: bool,
     pub authenticated: bool,
+    pub connection_error: bool,
     pub billing: String,
     pub version: String,
     pub detail: String,
@@ -81,6 +82,9 @@ impl Drop for Task {
 }
 pub fn stop() {
     personal::close_login_windows();
+    if let Some(home) = AGY_HOME.get() {
+        home.lock().unwrap().take();
+    }
     for t in tasks().lock().unwrap().values() {
         t.store(true, Ordering::SeqCst)
     }
@@ -115,12 +119,45 @@ fn working_dir() -> Result<PathBuf, String> {
     std::fs::create_dir_all(&p).map_err(|_| "Cannot create isolated provider working directory")?;
     Ok(p)
 }
+// Keep the CLI's private initialization/cache state for this app session.
+// Recreating USERPROFILE on every metadata command triggers repeated migrations.
+struct AgyHome {
+    dir: PathBuf,
+}
+impl Drop for AgyHome {
+    fn drop(&mut self) {
+        let base = std::env::temp_dir().join("local-chess-provider");
+        if self
+            .dir
+            .canonicalize()
+            .ok()
+            .zip(base.canonicalize().ok())
+            .is_some_and(|(p, b)| p.starts_with(b))
+        {
+            let _ = std::fs::remove_dir_all(&self.dir);
+        }
+    }
+}
+static AGY_HOME: OnceLock<Mutex<Option<Arc<AgyHome>>>> = OnceLock::new();
+fn agy_home() -> Result<Arc<AgyHome>, String> {
+    let mut home = AGY_HOME.get_or_init(|| Mutex::new(None)).lock().unwrap();
+    if let Some(h) = home.as_ref() {
+        return Ok(h.clone());
+    }
+    let h = Arc::new(AgyHome {
+        dir: working_dir()?,
+    });
+    personal::prepare_agy(&h.dir)?;
+    *home = Some(h.clone());
+    Ok(h)
+}
 struct Process {
     child: Child,
     input: Option<ChildStdin>,
     rx: Receiver<Result<String, String>>,
     dir: PathBuf,
     _job: Option<std::os::windows::io::OwnedHandle>,
+    _home: Option<Arc<AgyHome>>,
 }
 impl Drop for Process {
     fn drop(&mut self) {
@@ -146,9 +183,14 @@ impl Process {
     fn spawn_profile(exe: &Path, args: &[String], isolated_home: bool) -> Result<Self, String> {
         use std::os::windows::process::CommandExt;
         let dir = working_dir()?;
-        if isolated_home {
+        let home = if isolated_home {
+            // Custom agents are resolved from the invocation workspace, not
+            // the CLI cache home. Each workspace needs the restricted agent.
             personal::prepare_agy(&dir)?;
-        }
+            Some(agy_home()?)
+        } else {
+            None
+        };
         let mut cmd = Command::new(exe);
         cmd.args(args)
             .current_dir(&dir)
@@ -156,8 +198,8 @@ impl Process {
             .stdin(Stdio::piped())
             .stdout(Stdio::piped())
             .stderr(Stdio::null());
-        if isolated_home {
-            cmd.env("USERPROFILE", &dir);
+        if let Some(home) = &home {
+            cmd.env("USERPROFILE", &home.dir);
             // The fresh chess profile has no updater debounce marker. Do not launch
             // a background updater (and its console) on every headless invocation.
             cmd.env("AGY_CLI_DISABLE_AUTO_UPDATE", "true");
@@ -240,6 +282,7 @@ impl Process {
             rx,
             dir,
             _job: Some(job),
+            _home: home,
         })
     }
     fn line(&mut self, deadline: Instant, cancel: &AtomicBool) -> Result<String, String> {
@@ -421,6 +464,7 @@ fn codex_status(cancel: &AtomicBool, deadline: Instant) -> Status {
         installed: false,
         available: false,
         authenticated: false,
+        connection_error: false,
         billing: "Sign in with ChatGPT · plan limits apply".into(),
         version: String::new(),
         detail: "Install the official Codex CLI to play.".into(),
@@ -483,6 +527,7 @@ fn codex_status(cancel: &AtomicBool, deadline: Instant) -> Status {
     })();
     if let Err(e) = r {
         s.detail = e;
+        s.connection_error = true;
     }
     s
 }
@@ -519,6 +564,9 @@ fn provider_exe(id: &str) -> Option<PathBuf> {
     })
 }
 fn cache_status(status: &Status) {
+    if status.connection_error {
+        return;
+    }
     if let Some(exe) = provider_exe(&status.id) {
         if let Ok(time) = std::fs::metadata(exe).and_then(|m| m.modified()) {
             CATALOG_CACHE
@@ -553,6 +601,7 @@ fn ensure_selection(s: &Selection, cancel: &AtomicBool, deadline: Instant) -> Re
             _ => return Err("Provider unavailable".into()),
         },
     };
+    cache_status(&status);
     if !status.available {
         return Err(status.detail);
     }
