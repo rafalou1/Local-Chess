@@ -414,7 +414,6 @@ pub(super) fn move_text(
     prompt: &str,
     deadline: Instant,
     cancel: &AtomicBool,
-    raw: &mut RawOutput,
 ) -> Result<String, String> {
     if s.provider == "claude" {
         let exe = find_exe("claude").ok_or("Install Claude Code first")?;
@@ -436,9 +435,7 @@ pub(super) fn move_text(
         p.send(&json!({"type":"user","message":{"role":"user","content":prompt},"parent_tool_use_id":null,"session_id":"chess"}))?;
         p.input.take();
         for _ in 0..2000 {
-            let line = p.line(deadline, cancel)?;
-            raw.append(&line);
-            let v: Value = serde_json::from_str(&line)
+            let v: Value = serde_json::from_str(&p.line(deadline, cancel)?)
                 .map_err(|_| "Invalid Claude move event")?;
             if let Some(text) = claude_response(&v)? {
                 if text.len() > 2048 {
@@ -471,9 +468,7 @@ pub(super) fn move_text(
     p.send(&json!({"event":"user","message":{"content":prompt}}))?;
     p.input.take();
     for _ in 0..2000 {
-        let line = p.line(deadline, cancel)?;
-        raw.append(&line);
-        let v: Value = serde_json::from_str(&line)
+        let v: Value = serde_json::from_str(&p.line(deadline, cancel)?)
             .map_err(|_| "Invalid Antigravity move event")?;
         if v["event"] == "init" && v["init"]["permission_mode"] != "strict" {
             return Err("Antigravity did not honor the isolated permission profile".into());

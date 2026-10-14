@@ -1,12 +1,13 @@
 # Changes
 
-## 0.2.17 — Raw CLI response viewer
+## 0.2.17 — CLI response viewer
 
-- Open **Opponent options → View raw response** to inspect the original CLI event stream, copy it, and view the exact sent position prompt. Browse responses from this game and inspect correction attempts separately.
-- The compact dialog supports keyboard navigation, narrow windows, and English/German labels. Responses remain in memory for this app session; captured output is limited to 256 KiB per attempt, with truncation visibly marked.
+- Open **Opponent options → View CLI response** to see the actual answer that chose the move in a compact dark card. Copy the answer or browse earlier responses using previous/next controls.
+- Show the assistant's original response text, with no event envelopes, prompts, tool lists or diagnostic metadata. Only the final answer from a correction attempt is displayed.
+- Support keyboard dismissal, focus restoration, narrow windows, and English/German labels. Response history stays in memory for the current app session.
 - Preserve queued premoves through coach blunder warnings; resume them after Continue rather than silently discarding them.
 
-Verified: 121 native tests pass. A real Antigravity turn accepted a click premove and the viewer matched the captured CLI output exactly. UI checks cover raw-text escaping, correction attempts, copy, keyboard focus, and narrow windows. The delayed blunder-warning regression and ten existing premove cases pass.
+Verified: 120 native tests pass. Real Antigravity click premoves and the delayed-warning regression were tested, along with ten existing premove cases. The previous v0.2.16 build fails the preserved-queue assertion in the same warning regression.
 
 ## 0.2.16 — Antigravity startup repair
 

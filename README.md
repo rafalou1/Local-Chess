@@ -31,7 +31,7 @@ Choose **AI provider** when starting a game, then choose **Codex**, **Claude Cod
 
 The opponent receives the position, variant and legal moves after you accept the position-sharing checkbox. Stockfish still handles coaching, and the local chess rules validate every reply. Subscription/account limits apply; API authentication and automatic API billing fallback are blocked. Model access depends on your account and installed provider version. Connection failures show a Retry action, and Play explains any incomplete setup. Response times vary; lower effort can give faster replies.
 
-During a game, open **Opponent options → View raw response** to inspect and copy the CLI event stream, see the sent prompt, and browse correction attempts. Exchange history is kept for the current app session.
+During a game, open **Opponent options → View CLI response** to see and copy the assistant's actual answer that chose the move. The compact viewer contains no prompts or diagnostic metadata and lets you browse previous responses from the current app session.
 
 Codex real moves were tested for v0.2.15. Antigravity startup and real moves were tested again for v0.2.17. Claude's catalog and unauthenticated setup were tested; signed-in Claude inference still needs real-account verification.
 
