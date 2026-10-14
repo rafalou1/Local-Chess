@@ -1,0 +1,59 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Local Chess Coach",
+  "version": "0.2.15",
+  "identifier": "org.localchess.coach",
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "devUrl": "http://127.0.0.1:1420",
+    "beforeBuildCommand": "npm run build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "Local Chess Coach",
+        "width": 1500,
+        "height": 950,
+        "minWidth": 650,
+        "minHeight": 650,
+        "backgroundColor": "#302e2b"
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' asset: data: blob:; media-src 'self' blob:; connect-src 'self' ipc: http://ipc.localhost"
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": [
+      "nsis"
+    ],
+    "resources": [
+      "resources/stockfish-windows-x86-64-universal.exe",
+      "resources/Copying.txt",
+      "resources/AUTHORS",
+      "resources/voice/",
+      "resources/ai/",
+      "resources/learning/",
+      "resources/openings/",
+      "resources/stockfish-lite/",
+      "resources/providers/"
+    ],
+    "shortDescription": "Private offline chess coaching",
+    "windows": {
+      "nsis": {
+        "displayLanguageSelector": false
+      },
+      "webviewInstallMode": {
+        "type": "offlineInstaller"
+      }
+    },
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.ico"
+    ]
+  }
+}

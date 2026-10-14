@@ -1,0 +1,436 @@
+[
+  {
+    "path": "pieces/neo/wp.png",
+    "url": "https://images.chesscomfiles.com/chess-themes/pieces/neo/300/wp.png",
+    "bytes": 2030,
+    "sha256": "7b4befeb14120b359e8c9c2bc9c6f9c940593db74b14bcf77aadfaa1acd8121f",
+    "owner": "Chess.com; no redistribution license established",
+    "retrieved": "2026-10-08T19:29:13.411Z"
+  },
+  {
+    "path": "pieces/neo/wn.png",
+    "url": "https://images.chesscomfiles.com/chess-themes/pieces/neo/300/wn.png",
+    "bytes": 2830,
+    "sha256": "37962b6ed8868a4e98e0532753ac5ef08cd796d8ba101e3fb1128a71e706404b",
+    "owner": "Chess.com; no redistribution license established",
+    "retrieved": "2026-10-08T19:29:13.440Z"
+  },
+  {
+    "path": "pieces/neo/wb.png",
+    "url": "https://images.chesscomfiles.com/chess-themes/pieces/neo/300/wb.png",
+    "bytes": 2704,
+    "sha256": "ab4d09c7f838b4958996176de512ff53cad8762b0ec0108c68e9bd9c3fddf3c2",
+    "owner": "Chess.com; no redistribution license established",
+    "retrieved": "2026-10-08T19:29:13.469Z"
+  },
+  {
+    "path": "pieces/neo/wr.png",
+    "url": "https://images.chesscomfiles.com/chess-themes/pieces/neo/300/wr.png",
+    "bytes": 2477,
+    "sha256": "60a52d09dcf64572be3c0392571b9903dc953d5dfb95f57554d191ffee7d3215",
+    "owner": "Chess.com; no redistribution license established",
+    "retrieved": "2026-10-08T19:29:13.658Z"
+  },
+  {
+    "path": "pieces/neo/wq.png",
+    "url": "https://images.chesscomfiles.com/chess-themes/pieces/neo/300/wq.png",
+    "bytes": 3722,
+    "sha256": "ba9e31c1c95efcbd10502eb74734a871249a176bc77d4b4bde8fbc45767c8791",
+    "owner": "Chess.com; no redistribution license established",
+    "retrieved": "2026-10-08T19:29:13.706Z"
+  },
+  {
+    "path": "pieces/neo/wk.png",
+    "url": "https://images.chesscomfiles.com/chess-themes/pieces/neo/300/wk.png",
+    "bytes": 2987,
+    "sha256": "055e3c926c0ee837e532e6dbac897b3f696dc72263bf059248e3f6de5daabd15",
+    "owner": "Chess.com; no redistribution license established",
+    "retrieved": "2026-10-08T19:29:13.884Z"
+  },
+  {
+    "path": "pieces/neo/bp.png",
+    "url": "https://images.chesscomfiles.com/chess-themes/pieces/neo/300/bp.png",
+    "bytes": 1921,
+    "sha256": "3de1af692e8206a805f086d80689e36bcf0cf60a96f602b896c036eed4c37c95",
+    "owner": "Chess.com; no redistribution license established",
+    "retrieved": "2026-10-08T19:29:14.057Z"
+  },
+  {
+    "path": "pieces/neo/bn.png",
+    "url": "https://images.chesscomfiles.com/chess-themes/pieces/neo/300/bn.png",
+    "bytes": 2385,
+    "sha256": "4df6755e0bfa21f11ac10265435f08ab885c0dba758b90c23b81ab167ae4aeb0",
+    "owner": "Chess.com; no redistribution license established",
+    "retrieved": "2026-10-08T19:29:14.236Z"
+  },
+  {
+    "path": "pieces/neo/bb.png",
+    "url": "https://images.chesscomfiles.com/chess-themes/pieces/neo/300/bb.png",
+    "bytes": 2390,
+    "sha256": "0678ea343a019e4deab621955d55bdb30ef4902fa99e02697cbb3ae7f410d40b",
+    "owner": "Chess.com; no redistribution license established",
+    "retrieved": "2026-10-08T19:29:14.416Z"
+  },
+  {
+    "path": "pieces/neo/br.png",
+    "url": "https://images.chesscomfiles.com/chess-themes/pieces/neo/300/br.png",
+    "bytes": 2066,
+    "sha256": "58600e06d3f82988868379945eb658fe95164296d9b0dc9640e01abf2a08fce5",
+    "owner": "Chess.com; no redistribution license established",
+    "retrieved": "2026-10-08T19:29:14.593Z"
+  },
+  {
+    "path": "pieces/neo/bq.png",
+    "url": "https://images.chesscomfiles.com/chess-themes/pieces/neo/300/bq.png",
+    "bytes": 3409,
+    "sha256": "4252fee8d044d4ea0947c1474aeb2a1653dddee63b734653267c735897e91c83",
+    "owner": "Chess.com; no redistribution license established",
+    "retrieved": "2026-10-08T19:29:14.619Z"
+  },
+  {
+    "path": "pieces/neo/bk.png",
+    "url": "https://images.chesscomfiles.com/chess-themes/pieces/neo/300/bk.png",
+    "bytes": 2643,
+    "sha256": "cd91a234ce688db843652a52b6bd468faf14fbe51269f93aee14a1c426915f00",
+    "owner": "Chess.com; no redistribution license established",
+    "retrieved": "2026-10-08T19:29:14.798Z"
+  },
+  {
+    "path": "boards/dark-wood.png",
+    "url": "https://images.chesscomfiles.com/chess-themes/boards/dark_wood/200.png",
+    "bytes": 3943082,
+    "sha256": "0a46ef81400f575c87a99e6a04e8afca26c0e12aab1353f37de005c0c03419fa",
+    "owner": "Chess.com; no redistribution license established",
+    "retrieved": "2026-10-08T19:29:15.388Z"
+  },
+  {
+    "path": "sounds/reference/move.mp3",
+    "url": "https://images.chesscomfiles.com/chess-themes/sounds/_MP3_/default/move-self.mp3",
+    "bytes": 3433,
+    "sha256": "3a2eb75af1334c06dafd735c23388a560285e0df9436a44d27adc95a010a8547",
+    "owner": "Chess.com; no redistribution license established",
+    "retrieved": "2026-10-08T19:29:15.445Z"
+  },
+  {
+    "path": "sounds/reference/opponent.mp3",
+    "url": "https://images.chesscomfiles.com/chess-themes/sounds/_MP3_/default/move-opponent.mp3",
+    "bytes": 3433,
+    "sha256": "0931855637e50e4edbc7916ec7a66cca2f0eee763e1c791ff774a9945517ea61",
+    "owner": "Chess.com; no redistribution license established",
+    "retrieved": "2026-10-08T19:29:15.488Z"
+  },
+  {
+    "path": "sounds/reference/capture.mp3",
+    "url": "https://images.chesscomfiles.com/chess-themes/sounds/_MP3_/default/capture.mp3",
+    "bytes": 6889,
+    "sha256": "7158a77f3eb9a763fe723e9c9291819de8748444a1192d10383159fd8175709b",
+    "owner": "Chess.com; no redistribution license established",
+    "retrieved": "2026-10-08T19:29:15.526Z"
+  },
+  {
+    "path": "sounds/reference/check.mp3",
+    "url": "https://images.chesscomfiles.com/chess-themes/sounds/_MP3_/default/move-check.mp3",
+    "bytes": 6121,
+    "sha256": "ef4764a74d19d0db1659e413e8afadc25f1e8cfba83a4a76e6e64f28f3077d52",
+    "owner": "Chess.com; no redistribution license established",
+    "retrieved": "2026-10-08T19:29:15.560Z"
+  },
+  {
+    "path": "sounds/reference/castle.mp3",
+    "url": "https://images.chesscomfiles.com/chess-themes/sounds/_MP3_/default/castle.mp3",
+    "bytes": 5353,
+    "sha256": "da05719e6b3f0d04a2ac1a551e643ab14f4e840ae3b9410c0ea15ba4bcac5010",
+    "owner": "Chess.com; no redistribution license established",
+    "retrieved": "2026-10-08T19:29:15.592Z"
+  },
+  {
+    "path": "sounds/reference/promotion.mp3",
+    "url": "https://images.chesscomfiles.com/chess-themes/sounds/_MP3_/default/promote.mp3",
+    "bytes": 4969,
+    "sha256": "69219212aa2dce6031d6a641f8813779809bdff33562a8418d8e003eea465815",
+    "owner": "Chess.com; no redistribution license established",
+    "retrieved": "2026-10-08T19:29:15.619Z"
+  },
+  {
+    "path": "sounds/reference/end.mp3",
+    "url": "https://images.chesscomfiles.com/chess-themes/sounds/_MP3_/default/game-end.mp3",
+    "bytes": 5353,
+    "sha256": "9b53d24c925bcc96b05ca4808ff1198293f0bb3422176927cef5d3a10c4c9023",
+    "owner": "Chess.com; no redistribution license established",
+    "retrieved": "2026-10-08T19:29:15.652Z"
+  },
+  {
+    "path": "sounds/reference/invalid.mp3",
+    "url": "https://images.chesscomfiles.com/chess-themes/sounds/_MP3_/default/illegal.mp3",
+    "bytes": 4585,
+    "sha256": "3224eb7a6d93e52229ddcb49c62e584764d1474c123d25c91ecb2c74aa6291f9",
+    "owner": "Chess.com; no redistribution license established",
+    "retrieved": "2026-10-08T19:29:15.830Z"
+  },
+  {
+    "path": "fonts/ChessSans-Bold.woff2",
+    "url": "https://www.chess.com/bundles/web/fonts/chess-sans/ChessSans-Bold.19a3983f.woff2",
+    "bytes": 70528,
+    "sha256": "41d4e8d0f076bfdc95d9064649beb76664e605c77299d4058d249e174ec04292",
+    "owner": "Chess.com; no redistribution license established",
+    "retrieved": "2026-10-08T19:29:15.950Z"
+  },
+  {
+    "path": "fonts/ChessSans-ExtraBold.woff2",
+    "url": "https://www.chess.com/bundles/web/fonts/chess-sans/ChessSans-ExtraBold.3b60f736.woff2",
+    "bytes": 70724,
+    "sha256": "9ef55c00509dfa4d90dae49db742710e6ce81690a7cf48bb5db98e6743eadb02",
+    "owner": "Chess.com; no redistribution license established",
+    "retrieved": "2026-10-08T19:29:15.983Z"
+  },
+  {
+    "path": "badges/best.png",
+    "url": "https://downloads.intercomcdn.com/i/o/qzot1t7g/1637071903/77cb6ca45247128f333a61de8152/best.png?expires=1791612000&signature=7eefce8d0cbb056ec43771aea8cee6a906bd853812d6a1eb5287f7de411ed421&req=dSYkEcl5nIhfWvMW3Hu4gbwI76T5BZUg7zurYv1UUtYL3C8zWh8hAMjNwQo8%0A7w%3D%3D%0A",
+    "bytes": 745,
+    "sha256": "2f6adb35773a9d276f5e8c1844a0bf2c2be86a815a77def2ca40a39e86843cde",
+    "owner": "Chess.com; no redistribution license established",
+    "retrieved": "2026-10-08T19:29:16.908Z"
+  },
+  {
+    "path": "badges/excellent.png",
+    "url": "https://downloads.intercomcdn.com/i/o/qzot1t7g/1637072060/10cfcdb2e85b519f37bbcc003b84/excellent.png?expires=1791612000&signature=b6a4eeb74286f431fb53479395595371f619a23409de3117bb59a509eb1d76ca&req=dSYkEcl5n4FZWfMW3Hu4gQb%2F6Bsxno%2BD3YoFqFUPOtDO3acay5WLotQBF1lm%0Azw%3D%3D%0A",
+    "bytes": 723,
+    "sha256": "0a632b9eae68a4a8c9dfd40b2bcb2a1c49a016082adeb96a606f67c74c91278c",
+    "owner": "Chess.com; no redistribution license established",
+    "retrieved": "2026-10-08T19:29:17.087Z"
+  },
+  {
+    "path": "badges/good.png",
+    "url": "https://downloads.intercomcdn.com/i/o/qzot1t7g/1637072339/7b1fa05df4ee3103e3d0be935d01/good.png?expires=1791612000&signature=19023b01aa2509a748a40f5a4944120a1f8e627d4eb9557760a0797b8b8bd285&req=dSYkEcl5n4JcUPMW3Hu4gXM0r9ARO97IskkQRXg3TPwW2H6vzMr5SSNrWeII%0AKw%3D%3D%0A",
+    "bytes": 752,
+    "sha256": "5bdd058e5206656e6d4e7730bdf69fea0364ad39629fbc6cf907507264619e39",
+    "owner": "Chess.com; no redistribution license established",
+    "retrieved": "2026-10-08T19:29:17.297Z"
+  },
+  {
+    "path": "badges/innacuracy.png",
+    "url": "https://downloads.intercomcdn.com/i/o/qzot1t7g/1773434770/7d812b468182341864b3c910ae26/innacuracy.png?expires=1791612000&signature=ca8fefd4568f926f638b207e478a534c7e24085ce9b2e47729133f21d81ef159&req=dScgFc19mYZYWfMW3Hu4gTn57RFcGYIpRyMnlw0eW1p9yffN3Jqu4dHNW%2FVF%0AHw%3D%3D%0A",
+    "bytes": 855,
+    "sha256": "c43cb9092e3e33eea4f7fb4dfb8d39e8f81a8d4f223e93e204cec2b612371178",
+    "owner": "Chess.com; no redistribution license established",
+    "retrieved": "2026-10-08T19:29:17.473Z"
+  },
+  {
+    "path": "badges/mistake.png",
+    "url": "https://downloads.intercomcdn.com/i/o/qzot1t7g/1637072680/ad1b658b25545d0ef8071c8fe9c0/mistake.png?expires=1791612000&signature=74cda4e4f2b9b27e559ea262da02eb2c2016a763af85be742662522eb25cf6a6&req=dSYkEcl5n4dXWfMW3Hu4gZ%2Bhlszf3v8XvzvJWSZbEB54ujdh2zC7TjMLliLN%0Ang%3D%3D%0A",
+    "bytes": 650,
+    "sha256": "dcdb9677366ec63b96d03fa955d86f5a9264a4eafc69d5d95583de15e9289fd2",
+    "owner": "Chess.com; no redistribution license established",
+    "retrieved": "2026-10-08T19:29:17.667Z"
+  },
+  {
+    "path": "badges/blunder.png",
+    "url": "https://downloads.intercomcdn.com/i/o/qzot1t7g/1637072797/c2fc996629dbf3592a8c34b5eae7/blunder.png?expires=1791612000&signature=e0080438086a11424f82b0e022d57285cce2aeb86cfce790e5801c4f3f00150f&req=dSYkEcl5n4ZWXvMW3Hu4gcGWNDGvykZn0Sf8%2FQClz8jz3yMOp8GBJp9Qlr64%0A1Q%3D%3D%0A",
+    "bytes": 907,
+    "sha256": "f5c9245111b6302a889ce43006704b575bb6ef5409e682b4c337bd41f873f434",
+    "owner": "Chess.com; no redistribution license established",
+    "retrieved": "2026-10-08T19:29:17.860Z"
+  },
+  {
+    "path": "badges/great.png",
+    "url": "https://downloads.intercomcdn.com/i/o/qzot1t7g/1637071269/d5bb6eafbbba30d9a60e85936c57/great.png?expires=1791612000&signature=160eaed7eca383ade0d6555d7384e0954859427d15d972ccf100a6451d8d5703&req=dSYkEcl5nINZUPMW3Hu4gRvp26FyuYnoQ6DPHY6UOOlvES69igIWhvk5riEf%0Aeg%3D%3D%0A",
+    "bytes": 676,
+    "sha256": "77f71d1f34d0e1f808e66bd94e4988812b7f1aae8e0ab893c668b6a669458fb3",
+    "owner": "Chess.com; no redistribution license established",
+    "retrieved": "2026-10-08T19:29:18.033Z"
+  },
+  {
+    "path": "badges/brilliant.png",
+    "url": "https://downloads.intercomcdn.com/i/o/qzot1t7g/1637071528/66bb10f27947d975d32aa4b7a4aa/brilliant.png?expires=1791612000&signature=42581c508f191c1f60c91bae0a5b91e33359fe1e91648c9231f527f538e42e0c&req=dSYkEcl5nIRdUfMW3Hu4gbqERDNAhx%2BuHk5yCTxkT9VVn8yPi%2F7wAyu6sy6p%0AiA%3D%3D%0A",
+    "bytes": 812,
+    "sha256": "2d92f4dc49dc365ddd7ff087e3eb7095001fa560aed39f929477f7a4035dfb7e",
+    "owner": "Chess.com; no redistribution license established",
+    "retrieved": "2026-10-08T19:29:18.220Z"
+  },
+  {
+    "path": "badges/miss.png",
+    "url": "https://downloads.intercomcdn.com/i/o/qzot1t7g/1637071723/58ad222d8004bdf9504524175c5e/miss.png?expires=1791612000&signature=68e7090a900af74bfa3252fab1951d70ac6540a6632c47cd4043bb1c6784c31d&req=dSYkEcl5nIZdWvMW3Hu4gZF%2FoINJh2LDKSA3r2ScpU3Bbdvovy%2FgzZxvMl2P%0ApQ%3D%3D%0A",
+    "bytes": 764,
+    "sha256": "f2f779ce9e502a4df37aef21f05c3d057fe0b4417b29e6215aa0527fd48c3e4c",
+    "owner": "Chess.com; no redistribution license established",
+    "retrieved": "2026-10-08T19:29:18.407Z"
+  },
+  {
+    "path": "badges/best.svg",
+    "url": "https://www.chess.com/r2/client-packages/play-computer/2026.10.2/shared.eager.Dkrh6pApjm.chunk.js",
+    "extraction": "Original SVG path group; static template class names resolved; no artwork redrawn",
+    "sha256": "68c3a0a3f38c16b931674b7dc487e39266021b1252327fb956301f3bed487f80",
+    "owner": "Chess.com; no redistribution license established",
+    "bytes": 1318
+  },
+  {
+    "path": "badges/excellent.svg",
+    "url": "https://www.chess.com/r2/client-packages/play-computer/2026.10.2/shared.eager.Dkrh6pApjm.chunk.js",
+    "extraction": "Original SVG path group; static template class names resolved; no artwork redrawn",
+    "sha256": "f5c3610803f44e4184d478d797898bfcd95db0ae98c0fd51d73d45a5b14c8d93",
+    "owner": "Chess.com; no redistribution license established",
+    "bytes": 1678
+  },
+  {
+    "path": "badges/good.svg",
+    "url": "https://www.chess.com/r2/client-packages/play-computer/2026.10.2/shared.eager.Dkrh6pApjm.chunk.js",
+    "extraction": "Original SVG path group; static template class names resolved; no artwork redrawn",
+    "sha256": "05c27cf9b8d432eacb1d0ac62d05bf944b5b10c796a14cabb08bf66a4d96b638",
+    "owner": "Chess.com; no redistribution license established",
+    "bytes": 1201
+  },
+  {
+    "path": "badges/inaccuracy.svg",
+    "url": "https://www.chess.com/r2/client-packages/play-computer/2026.10.2/shared.eager.Dkrh6pApjm.chunk.js",
+    "extraction": "Original SVG path group; static template class names resolved; no artwork redrawn",
+    "sha256": "dab0c89764ee75d3535e4b38c1c21594124f39255c545edfd74b7be32406f74d",
+    "owner": "Chess.com; no redistribution license established",
+    "bytes": 3351
+  },
+  {
+    "path": "badges/mistake.svg",
+    "url": "https://www.chess.com/r2/client-packages/play-computer/2026.10.2/shared.eager.Dkrh6pApjm.chunk.js",
+    "extraction": "Original SVG path group; static template class names resolved; no artwork redrawn",
+    "sha256": "28f3a0d5211bf12f18d7b19e9b5dbcca030f231f8ab7debe28995850d0133f6e",
+    "owner": "Chess.com; no redistribution license established",
+    "bytes": 2478
+  },
+  {
+    "path": "badges/blunder.svg",
+    "url": "https://www.chess.com/r2/client-packages/play-computer/2026.10.2/shared.eager.Dkrh6pApjm.chunk.js",
+    "extraction": "Original SVG path group; static template class names resolved; no artwork redrawn",
+    "sha256": "e0751341969fc7d0394144c005509b38e9958c96d1a159d5a089afe1b4271ec2",
+    "owner": "Chess.com; no redistribution license established",
+    "bytes": 4677
+  },
+  {
+    "path": "badges/brilliant.svg",
+    "url": "https://www.chess.com/r2/client-packages/play-computer/2026.10.2/shared.eager.Dkrh6pApjm.chunk.js",
+    "extraction": "Original SVG path group; static template class names resolved; no artwork redrawn",
+    "sha256": "9be0beb7c087b909245212c1c87a2a03c8b8a12f7abf3bea1ee3be7deba6afa1",
+    "owner": "Chess.com; no redistribution license established",
+    "bytes": 2213
+  },
+  {
+    "path": "badges/book.svg",
+    "url": "https://www.chess.com/r2/client-packages/play-computer/2026.10.2/shared.eager.Dkrh6pApjm.chunk.js",
+    "extraction": "Original SVG path group; static template class names resolved; no artwork redrawn",
+    "sha256": "7de3598c8432192925d0d699d2d307acfbe96548e1da05b12855930a4e5a5fe2",
+    "owner": "Chess.com; no redistribution license established",
+    "bytes": 894
+  },
+  {
+    "path": "badges/miss.svg",
+    "url": "https://www.chess.com/r2/client-packages/play-computer/2026.10.2/shared.eager.Dkrh6pApjm.chunk.js",
+    "extraction": "Original SVG path group; static template class names resolved; no artwork redrawn",
+    "sha256": "de72d4bea7ffad5db3d154f38b0009983fb393b8627a4d2d98bb78dc239002bd",
+    "owner": "Chess.com; no redistribution license established",
+    "bytes": 1665
+  },
+  {
+    "path": "coach-reference.png",
+    "url": "https://assets-coaches.chess.com/image/coachdavid.png?v=41de5a5d",
+    "sha256": "0a1685db87ddb28081a751aff16945b749f9546243973de55b253ded8a405614",
+    "owner": "Chess.com; no redistribution license established",
+    "bytes": 27274
+  },
+  {
+    "path": "nav/play.svg",
+    "url": "https://assets-ds.chess.com/color-icons/play-white.svg",
+    "sha256": "284058b7a3c0379352d9d4bf410dfd23b9a361ef8a2f91cb9a1d1f7e0d29c7a8",
+    "owner": "Chess.com; no redistribution license established",
+    "bytes": 4102
+  },
+  {
+    "path": "nav/review.svg",
+    "url": "https://assets-ds.chess.com/color-icons/lessons.svg",
+    "sha256": "2b3cb07468df7f0d58a8cd1d98b3cad523444f41a20f85075d1d0fb8e5212666",
+    "owner": "Chess.com; no redistribution license established",
+    "bytes": 2198
+  },
+  {
+    "path": "nav/training.svg",
+    "url": "https://assets-ds.chess.com/color-icons/training.svg",
+    "sha256": "22b02e8dd15e5b1e4a40d32b62e31e6d0aa7a96a0cbf89400048aa9e9c22f7ad",
+    "owner": "Chess.com; no redistribution license established",
+    "bytes": 4069
+  },
+  {
+    "path": "nav/analysis.svg",
+    "url": "https://assets-ds.chess.com/color-icons/binoculars.svg",
+    "sha256": "7ab5f03602faeb31263e16d4ee9e2952dedac05a0ff5d1ce39642cdad4a328f5",
+    "owner": "Chess.com; no redistribution license established",
+    "bytes": 4725
+  },
+  {
+    "path": "boards/walnut.png",
+    "url": "https://images.chesscomfiles.com/chess-themes/boards/walnut/200.png",
+    "owner": "Chess.com; no redistribution license established",
+    "sha256": "8b78c7e9e2b8b61afb6e8ab96cc9d4a1c49623a87d6227544f891d80ed11ad1d",
+    "bytes": 529897
+  },
+  {
+    "path": "sounds/reference/start.mp3",
+    "url": "https://images.chesscomfiles.com/chess-themes/sounds/_MP3_/default/game-start.mp3",
+    "sha256": "cdb01ddc68a1406abd065597ec604053dd9ea8e20636f27d41a6fe1d6b1a835d",
+    "owner": "Chess.com; no redistribution license established",
+    "bytes": 5353
+  },
+  {
+    "path": "sounds/reference/lowtime.mp3",
+    "url": "https://images.chesscomfiles.com/chess-themes/sounds/_MP3_/default/tenseconds.mp3",
+    "sha256": "797b878fc67d1c368c661c5e78511edc0796b5aba2e959204213a9547ba1d277",
+    "owner": "Chess.com; no redistribution license established",
+    "bytes": 10729
+  },
+  {
+    "path": "fonts/ChessGlyph.woff2",
+    "url": "https://www.chess.com/bundles/web/fonts/chessglyph-v3/chessglyph-v3.3e78f81f.woff2",
+    "owner": "Chess.com; no redistribution license established",
+    "sha256": "51b3877d45c25bddd60e5c975fedb77bd5582cf7241d58dd34047807c74637d1",
+    "bytes": 68472
+  },
+  {
+    "path": "badges/great.svg",
+    "url": "https://www.chess.com/r2/client-packages/play-computer/2026.10.2/shared.eager.Dkrh6pApjm.chunk.js",
+    "owner": "Chess.com; no redistribution license established",
+    "sha256": "c9fdedf14d8ee891efa8d5c0bf0b67058b716b5e6ab6b944153c655bb9329f82",
+    "bytes": 1306
+  },
+  {
+    "path": "nav/magnifier-star.svg",
+    "url": "https://assets-ds.chess.com/color-icons/magnifier-star.svg",
+    "bytes": 2812,
+    "sha256": "57d12417d7d55876aefb9387bb86e004d83b97b6e70de9fe06f3eb43ff75b5f9",
+    "owner": "Chess.com; no redistribution license established",
+    "retrieved": "2026-10-09T08:21:47.444046+00:00",
+    "method": "Observed browser pageAssets bundle"
+  },
+  {
+    "path": "player-default.gif",
+    "url": "https://www.chess.com/bundles/web/images/noavatar_l.84a92436.gif",
+    "bytes": 1387,
+    "sha256": "2b1d65de0e09c6c43c4e5fe1da910921cb1b67240bd28c1ff17c24104998c01a",
+    "owner": "Chess.com; no redistribution license established",
+    "retrieved": "2026-10-09T08:21:47.444278+00:00",
+    "method": "Observed browser pageAssets bundle"
+  },
+  {
+    "path": "badges/winner.svg",
+    "url": "https://www.chess.com/game/coach/267438398",
+    "bytes": 618,
+    "sha256": "b0d54e86d66b8cb2192c5c68a80b6118e73d63d86b703f6834b7420e8216c3d1",
+    "owner": "Chess.com; no redistribution license established",
+    "retrieved": "2026-10-09T08:28:50.547628+00:00",
+    "method": "Observed inline SVG path from pageAssets; local circle wrapper adapted to board badge size"
+  },
+  {
+    "path": "badges/mate.svg",
+    "url": "https://www.chess.com/game/coach/267438398",
+    "bytes": 2980,
+    "sha256": "1dde4b181cadec0b9aecc37fc9188efa09bfe495bf9923985ace477959449650",
+    "owner": "Chess.com; no redistribution license established",
+    "retrieved": "2026-10-09T08:28:50.548157+00:00",
+    "method": "Observed inline SVG path from pageAssets; local circle wrapper adapted to board badge size"
+  }
+]

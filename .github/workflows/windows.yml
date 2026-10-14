@@ -1,0 +1,31 @@
+name: Windows build
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: windows-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri
+      - run: npm ci
+      - name: Download verified build resources
+        shell: pwsh
+        run: ./scripts/Fetch-BuildResources.ps1
+      - run: npm test
+      - run: node tests/premove-targets.mjs
+      - run: npm run tauri build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: LocalChessCoach-Windows-Installer
+          path: src-tauri/target/release/bundle/nsis/*-setup.exe
+          if-no-files-found: error

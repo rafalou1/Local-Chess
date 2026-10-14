@@ -1,0 +1,2 @@
+const glyphs:Record<string,Record<string,string>>={w:{K:'\u0100',Q:'\u012e',R:'\u013d',B:'\u0102',N:'\u00c7'},b:{K:'\u0104',Q:'\u0136',R:'\u013b',B:'\u00c4',N:'\u0116'}};
+export function MoveSan({san,color}:{san:string;color:string}){return <>{san.split(/([KQRBN])/).map((part,i)=>glyphs[color]?.[part]?<span key={i} aria-hidden="true" className="notation-piece">{glyphs[color][part]}</span>:<span key={i}>{part}</span>)}</>}

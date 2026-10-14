@@ -1,0 +1,127 @@
+/* Shared finish for the actual app surfaces. Board assets and geometry remain
+   owned by the measured board styles; this layer aligns controls and rhythm. */
+:root{--ink:#f0efe9;--muted:#aaa79f;--surface:#262421;--raised:#302e2a;--hairline:#ffffff0d;--accent:#81b64c;--radius:7px;color:var(--ink)}
+button{font-weight:600;transition:background-color .14s,color .14s,box-shadow .14s; -webkit-tap-highlight-color:transparent}
+button:disabled:hover{background-color:inherit;color:inherit}
+button svg{stroke-width:1.85;flex-shrink:0}
+button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:2px solid #a9cf80;outline-offset:3px}
+/* Reference rail: original colored assets and pawn glyph, not outline replacements. */
+.rail{background:#262522;border-right:0;gap:0;padding:10px 0}
+.rail button{width:42px;height:40px;border-radius:0;position:relative;opacity:1;padding:8px 10px;color:#999895}
+.rail button:hover,.rail button:focus-visible{background:#ffffff0b;color:#deddd9}
+.rail button.nav-active{background:transparent;color:#999895}
+.rail button.nav-active:before{content:none}
+.rail button>img{width:24px;height:24px;object-fit:contain;display:block}
+.rail .brand-pawn{height:40px;margin-bottom:8px;padding:0;color:#81b64c}
+.rail .brand-pawn .reference-glyph{font-size:38px;line-height:1;color:#81b64c}
+.rail .reference-glyph{font-size:24px;line-height:1}
+.rail button:last-child .reference-glyph{font-size:22px}
+.coach-panel{background:var(--surface);border:1px solid var(--hairline);border-radius:8px;box-shadow:0 4px 18px #00000012}
+.panel-heading{height:52px;background:#22211e;border-bottom:1px solid var(--hairline);display:flex;align-items:center;justify-content:center;font-size:18px;padding:12px 44px}
+.review-heading{background:#22211e;border-bottom:1px solid var(--hairline)}
+.review-heading button{border-radius:6px;min-width:30px;min-height:32px}
+.player{gap:10px;color:#e8e6de}
+.player strong{font-size:14px;letter-spacing:0;font-weight:600}
+.player small{font-size:11px;color:#aba79d;line-height:16px;margin-top:2px}
+.you-avatar{padding:0;overflow:hidden;background:none;border-radius:6px}
+.you-avatar img{width:40px;height:40px;display:block;object-fit:contain}
+.player .avatar{border-radius:6px}
+.player>button{border-radius:6px;color:#aaa79e}
+.player>button:hover{color:#e9e6dc;background:#ffffff09}
+.board{box-shadow:0 2px 8px #00000018}
+.coach-intro.in-game{padding:22px 16px 20px;min-height:125px;align-items:flex-end}
+.coach-intro.in-game .avatar{width:76px;height:88px;transform:none}
+.coach-feed{transform:none;gap:9px}
+.speech,.review-speech{border-radius:10px;color:#302e29;background:#fff;box-shadow:0 1px 3px #0000000b}
+.in-game .speech{font-weight:400;font-size:15px;line-height:21px;padding:13px 15px;min-height:58px}
+.speech-text{max-height:130px;overflow:auto;scrollbar-width:thin}
+.review-coach{padding:24px 23px 18px;min-height:128px}
+.review-speech{padding:13px 15px;font-weight:400;line-height:21px}
+.review-speech-title{color:#54514b;font-size:13px;gap:7px;margin-bottom:6px}
+.review-speech-title b{font-size:14px;padding:1px 6px;font-variant-numeric:tabular-nums}
+.review-speech p{line-height:21px}
+.setup-content{background:#22211e;padding-top:17px;border-radius:0}
+.setup-row{padding:0 7px 20px;color:#bbb8af}
+.difficulty{border-radius:8px;background:linear-gradient(#363430,#302e2a);box-shadow:0 1px 2px #0002;margin-bottom:10px;min-height:72px;padding:15px 17px}
+.difficulty:hover{background:linear-gradient(#3e3b36,#35322e)}
+.difficulty.active{outline:2px solid var(--accent);outline-offset:1px;background:linear-gradient(#3b3c31,#32332b)}
+.difficulty strong{font-size:18px;line-height:24px}
+.difficulty span{color:#bcb9b0;font-size:12px;line-height:18px;margin-top:2px}
+.game-options{border-top:1px solid var(--hairline);margin-top:3px;padding-top:5px}
+.game-options summary{padding:9px;color:#aaa79f}
+.primary,.actions>button.primary,.review-step-actions .primary,.review-start .primary{background:linear-gradient(#85b951,#669d42);border-top:1px solid #add17e;box-shadow:0 3px 0 #4b7433;color:white}
+.primary:hover,.actions>button.primary:hover,.review-step-actions .primary:hover{background:linear-gradient(#90c05b,#73a94c)}
+.play-button{min-height:62px;height:62px;margin-top:12px;border-radius:8px;letter-spacing:0}
+.game-content{gap:12px;padding:0 16px 16px}
+.opening-name{padding:9px 12px;background:#ffffff04;border:1px solid var(--hairline);color:#b3afa4;font-size:12px;border-radius:5px}
+.move-list{background:#22211f;border:1px solid var(--hairline);border-radius:6px;padding:5px 4px;scrollbar-width:thin;scrollbar-color:#4d4942 transparent}
+.move-list button{font-size:14px;font-weight:600;min-height:32px;padding:5px 10px}
+.move-list button.current{color:#e7eadc;background:#81b64c1b}
+.move-number{font-size:12px;align-self:center;padding:7px;color:#939087}
+.history-controls{background:none;border-top:1px solid var(--hairline);padding-top:4px;gap:4px}
+.history-controls button{min-height:34px;border-radius:5px;flex:1}
+.actions{gap:8px}
+.actions>button{min-height:50px;border-radius:7px;font-size:15px;background:#ffffff06;border:1px solid #ffffff09}
+.secondary-actions{padding-top:1px;gap:5px}
+.secondary-actions button{width:32px;height:32px;border-radius:6px;color:#99968c}
+.engine-details,.coach-question-menu{border-top:1px solid var(--hairline);font-size:12px;color:#ada99e}
+.engine-details summary,.coach-question-menu summary{padding:8px 2px;outline-offset:0}
+.analysis-proof{font-size:12px;line-height:19px;color:#aba79d;padding:9px 10px;margin:7px 0;background:#ffffff04;border-radius:5px;overflow-wrap:anywhere}
+.review-explanation .analysis-proof{color:#615b51;background:#f5f3ee}
+.review-move-row button{font-weight:600}
+.review-row-group:nth-child(even)>.review-move-row{background:#ffffff04}
+.review-navigation button{border-radius:7px;background:linear-gradient(#373530,#2e2c28);border:1px solid #ffffff09;box-shadow:0 2px 2px #0002}
+.review-navigation button:disabled{opacity:.32}
+.review-step-actions button,.review-bottom-actions button{border-radius:6px;border-top-color:#ffffff16;box-shadow:0 2px 2px #0002}
+.review-footer{padding-top:8px;gap:20px;color:#99958b}
+.review-footer button{font-size:12px}
+.review-you{border-color:#89b957;border-radius:7px;background:none}
+.review-manual-line{border-left-color:#6c695f;color:#c9c6bd;padding-top:4px;padding-bottom:4px}
+.review-manual-line button:hover{background:#ffffff0b;color:#f4f0e6}
+.review-manual-line button.selected{background:#56534b;color:white}
+.review-options{font-size:12px;padding-top:3px;padding-bottom:4px}
+.review-options summary{min-height:24px;line-height:24px}
+.settings-modal{border-radius:12px;border-color:#ffffff13;box-shadow:0 24px 80px #0007}
+.preferences header{padding:26px 30px 23px;background:#292822}
+.preferences-eyebrow{letter-spacing:1.3px;color:#a9b991;font-size:10px}
+.preferences h2{font-size:26px;margin-top:11px;margin-bottom:7px}
+.preferences header p{font-size:13px;color:#b0aba0}
+.preferences-body>nav{background:#211f1c;padding:16px 10px}
+.preferences-body>nav button{padding:12px 11px;border-radius:6px;line-height:18px}
+.preferences-body>nav button.active{background:#81b64c16;color:#c1d8a9}
+.preference-card{background:#292722;border-radius:9px;padding:20px;border-color:#ffffff0b;margin-bottom:14px}
+.preference-card h3{font-size:17px;line-height:23px}
+.preference-row{padding:14px 0}
+.preference-row strong{font-size:13px;font-weight:600}
+.preference-row small{font-size:12px;color:#a49e91}
+.preference-field select,.provider-settings select,.provider-settings input{background:#211f1b;border:1px solid #ffffff17;border-radius:6px;min-height:40px}
+.segmented{border-radius:6px;border-color:#ffffff0b;background:#211f1b}
+.segmented button{min-height:34px}
+.segmented button.selected{background:#414438;color:#e1ebd6;box-shadow:none}
+.theme-option{border-radius:7px;background:#23211d}
+.theme-option.selected{border-color:#89b957}
+.switch-track{background:#575348}
+.preferences footer{background:#24221e;color:#aaa38f}
+.coach-volume-popover{background:#302e28;border:1px solid #ffffff18;border-radius:8px;box-shadow:0 8px 24px #0006}
+.modal:not(.settings-modal){background:#282622;border:1px solid #ffffff13;border-radius:12px}
+.modal h2{line-height:1.25}
+.archive button{border:1px solid #ffffff09;border-radius:7px;min-height:56px;padding:12px 14px;margin-bottom:4px}
+.archive button:hover{background:#ffffff08;border-color:#ffffff15}
+.training-choice{border:1px solid var(--hairline);border-radius:7px;padding:14px;min-height:62px}
+@media(max-width:1450px){.game-content{padding-left:13px;padding-right:13px}.coach-intro.in-game{padding-left:12px;padding-right:12px}.review-coach{padding-left:20px;padding-right:20px}.coach-intro.in-game .avatar{width:65px;height:80px}}
+@media(max-width:700px){.preferences header{padding:22px 20px}.preferences h2{font-size:24px}.preference-card{padding:16px}.player strong{font-size:13px}.rail button{width:38px;height:41px}}
+@media(prefers-reduced-motion:reduce){button{transition:none}}
+
+.mistake-warning-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:3px}
+.mistake-warning-actions button{min-height:42px;background:#ffffff0d;border:1px solid #ffffff0b;font-size:14px;border-radius:6px}
+.mistake-warning-actions button.primary{background:linear-gradient(#85b951,#669d42);border-top-color:#add17e}
+.mistake-warning-actions button{display:flex;align-items:center;justify-content:center;gap:8px}
+.mistake-warning-actions .warning-continue-icon{font-size:18px;line-height:1;width:20px;flex:none;color:#c3c1bf}
+.coach-intro.in-game:has(.mistake-warning-actions){display:grid;grid-template-columns:76px minmax(0,1fr);grid-template-rows:auto auto;align-items:end;row-gap:10px}
+.coach-intro.in-game:has(.mistake-warning-actions) .avatar{grid-column:1;grid-row:1}
+.coach-intro.in-game:has(.mistake-warning-actions) .coach-feed{display:contents}
+.coach-intro.in-game:has(.mistake-warning-actions) .speech{grid-column:2;grid-row:1}
+.coach-intro.in-game:has(.mistake-warning-actions) .mistake-warning-actions{grid-column:1/-1;grid-row:2;margin:0}
+@media(max-width:1450px){.coach-intro.in-game:has(.mistake-warning-actions){grid-template-columns:65px minmax(0,1fr)}}
+.move-list button .move-badge{flex:none;width:17px;height:17px}
+@media(min-width:1001px){.workspace{height:100vh;min-height:0}.coach-panel{height:calc(100vh - 39px);min-height:0!important;overflow:hidden}.game-content{overflow-y:auto;overscroll-behavior:contain}.game-content> :not(.move-list){flex-shrink:0}.move-list{min-height:112px}.coach-intro.in-game{flex-shrink:0;padding-top:18px;padding-bottom:16px}.coach-feed{min-width:0}.in-game .speech{max-height:112px}}

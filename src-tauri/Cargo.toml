@@ -1,0 +1,26 @@
+[package]
+name = "local-chess-coach"
+version = "0.2.15"
+edition = "2021"
+license = "GPL-3.0-or-later"
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+[dependencies]
+tauri = { version = "2", features = [] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+shakmaty = "0.29"
+rusqlite = { version = "0.37", features = ["bundled"] }
+uuid = { version = "1", features = ["v4"] }
+sha2 = "0.10"
+sysinfo = "0.37"
+pgn-reader = "0.28"
+windows-sys = { version = "0.61", features = ["Win32_System_JobObjects", "Win32_System_Threading", "Win32_Foundation", "Win32_Security"] }
+keyring = { version = "3", features = ["windows-native"] }
+reqwest = { version = "0.12", default-features = false, features = ["json", "rustls-tls"] }
+tauri-plugin-dialog = "2"
+windows = { version = "0.61", features = ["Win32_Media_Speech", "Win32_System_Com"] }
+libloading = "0.8"
+base64 = "0.22"
+
+
