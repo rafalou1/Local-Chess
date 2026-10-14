@@ -53,7 +53,24 @@ pub struct Diagnostic {
     pub elapsed_ms: u64,
     pub attempts: usize,
     pub responses: Vec<String>,
+    pub prompts: Vec<String>,
+    pub raw_outputs: Vec<RawOutput>,
     pub outcome: String,
+}
+#[derive(Clone, Serialize, Default)]
+pub struct RawOutput {
+    pub text: String,
+    pub truncated: bool,
+}
+impl RawOutput {
+    fn append(&mut self, line: &str) {
+        if self.truncated { return; }
+        let available = 262144usize.saturating_sub(self.text.len());
+        let mut end = line.len().min(available);
+        while !line.is_char_boundary(end) { end -= 1; }
+        self.text.push_str(&line[..end]);
+        self.truncated |= end < line.len();
+    }
 }
 static TASKS: OnceLock<Mutex<HashMap<String, Arc<AtomicBool>>>> = OnceLock::new();
 static LOG: OnceLock<Mutex<Vec<Diagnostic>>> = OnceLock::new();
@@ -697,6 +714,7 @@ fn exec_move(
     prompt: &str,
     deadline: Instant,
     cancel: &AtomicBool,
+    raw: &mut RawOutput,
 ) -> Result<String, String> {
     let exe = find_exe("codex").ok_or("Codex CLI is missing")?;
     let feature_list = simple(&exe, &["features".into(), "list".into()], deadline, cancel)?;
@@ -738,7 +756,9 @@ fn exec_move(
     drop(input);
     let mut response = None;
     for _ in 0..2000 {
-        let v: Value = serde_json::from_str(&p.line(deadline, cancel)?)
+        let line = p.line(deadline, cancel)?;
+        raw.append(&line);
+        let v: Value = serde_json::from_str(&line)
             .map_err(|_| "Invalid provider JSON event")?;
         match v["type"].as_str() {
             Some("item.completed") => {
@@ -824,10 +844,13 @@ pub async fn provider_opponent(
             ensure_selection(&selection, &t.cancel, deadline)?;
             let text = prompt(&snapshot.fen, &snapshot.legal, g.chess960);
             let mv = retry_once(&text, &snapshot.legal, &mut d.responses, |p| {
+                d.prompts.push(p.to_owned());
+                d.raw_outputs.push(RawOutput::default());
+                let raw = d.raw_outputs.last_mut().unwrap();
                 if selection.provider == "codex" {
-                    exec_move(&selection, p, deadline, &t.cancel)
+                    exec_move(&selection, p, deadline, &t.cancel, raw)
                 } else {
-                    personal::move_text(&selection, p, deadline, &t.cancel)
+                    personal::move_text(&selection, p, deadline, &t.cancel, raw)
                 }
             })?;
             if t.cancel.load(Ordering::SeqCst) {
@@ -847,7 +870,7 @@ pub async fn provider_opponent(
             Ok(mv)
         })();
         d.elapsed_ms = began.elapsed().as_millis() as u64;
-        d.attempts = d.responses.len();
+        d.attempts = d.prompts.len();
         d.outcome = if result.is_ok() {
             "Legal move validated".into()
         } else {
@@ -938,6 +961,21 @@ pub fn provider_local(
 }
 #[cfg(test)]
 mod tests {
+    #[test]
+    fn raw_output_preserves_events_and_bounds_utf8() {
+        let mut raw = super::RawOutput::default();
+        let event = "{\"event\":\"result\",\"response\":\"e2e4\"}\r\n";
+        raw.append(event);
+        assert_eq!(raw.text, event);
+        assert!(!raw.truncated);
+        raw.append(&"é".repeat(262144));
+        assert!(raw.truncated);
+        assert!(raw.text.len() <= 262144);
+        let before = raw.text.clone();
+        raw.append("another event");
+        assert_eq!(raw.text, before);
+        assert!(raw.text.len() <= 262144);
+    }
     use super::*;
     #[test]
     fn harmless_cli_diagnostic_is_not_a_move_or_tool() {

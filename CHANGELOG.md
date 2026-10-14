@@ -1,5 +1,13 @@
 # Changes
 
+## 0.2.17 — Raw CLI response viewer
+
+- Open **Opponent options → View raw response** to inspect the original CLI event stream, copy it, and view the exact sent position prompt. Browse responses from this game and inspect correction attempts separately.
+- The compact dialog supports keyboard navigation, narrow windows, and English/German labels. Responses remain in memory for this app session; captured output is limited to 256 KiB per attempt, with truncation visibly marked.
+- Preserve queued premoves through coach blunder warnings; resume them after Continue rather than silently discarding them.
+
+Verified: 121 native tests pass. A real Antigravity turn accepted a click premove and the viewer matched the captured CLI output exactly. UI checks cover raw-text escaping, correction attempts, copy, keyboard focus, and narrow windows. The delayed blunder-warning regression and ten existing premove cases pass.
+
 ## 0.2.16 — Antigravity startup repair
 
 - Removed hanging headless settings probes. Model and effort choices come from actual pinned model IDs in the native catalog.
