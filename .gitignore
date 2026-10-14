@@ -16,3 +16,17 @@ third-party/
 *.dll
 *.onnx
 *.gguf
+
+# Private local research, QA and migration material are never publication inputs.
+docs/**
+!docs/INSTALL.md
+!docs/REFERENCE_ASSETS.json
+!docs/NEURAL_VOICE_RESOURCES.json
+!docs/images/
+!docs/images/**
+scripts/**
+!scripts/Fetch-BuildResources.ps1
+!scripts/Setup-LocalAI.ps1
+tests/**
+!tests/premove-targets.mjs
+work-assets.mjs
